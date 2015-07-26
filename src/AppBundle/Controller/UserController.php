@@ -90,7 +90,7 @@ class UserController extends Controller {
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneByUsername($username);
 
         if($user === null) {
-            $this->createNotFoundException('The requested user does not exist.');
+            throw $this->createNotFoundException('The requested user does not exist.');
         }
 
         $defaultData = [
@@ -185,7 +185,7 @@ class UserController extends Controller {
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneByUsername($username);
 
         if($user === null) {
-            $this->createNotFoundException('The requested user does not exist.');
+            throw $this->createNotFoundException('The requested user does not exist.');
         }
 
         if($user->getId() === 1) {

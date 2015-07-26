@@ -15,14 +15,63 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 class ProjectController extends Controller {
 
     /**
+     * @Route("/project/add", name="add_project")
+     */
+    public function addAction(Request $request) {
+        $project = new Project();
+
+        $form = $this->createFormBuilder($project)
+            ->add('name', 'text')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $slugger = $this->get('slugger');
+
+            $slug = $slugger->slugify($project->getName());
+
+            $project->setSlug($slug);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $existingProject = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
+
+            if(null !== $existingProject) {
+                $form->get('name')->addError(new FormError('Project name is already in use. Please choose another one'));
+            } else {
+                $user = $this->getUser();
+
+                $project->setOwner($user);
+                $project->addUser($user);
+
+                $user->addProject($project);
+
+                $em->persist($project);
+                $em->persist($user);
+
+                $em->flush();
+
+                $this->addFlash('success', 'Project was successfully added');
+
+                return $this->redirectToRoute('show_project', ['slug' => $slug ]);
+            }
+        }
+
+        return $this->render('project/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/project/{slug}", name="show_project")
      */
     public function showAction($slug) {
         $em = $this->getDoctrine()->getManager();
         $project = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
-        if(null === $project) {
-            $this->createNotFoundException('The requested project was not found.');
+        if($project === null) {
+            throw $this->createNotFoundException('The requested project was not found.');
         }
 
         $this->checkMembership($project, $this->getUser());
@@ -93,7 +142,7 @@ class ProjectController extends Controller {
         $project = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
         if(null === $project) {
-            $this->createNotFoundException('The requested project was not found.');
+            throw $this->createNotFoundException('The requested project was not found.');
         }
 
         $workedTime = new WorkedTime();
@@ -134,7 +183,7 @@ class ProjectController extends Controller {
         $project = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
         if(null === $project) {
-            $this->createNotFoundException('The requested project was not found.');
+            throw $this->createNotFoundException('The requested project was not found.');
         }
 
         $entriesPerPage = 25;
@@ -175,55 +224,6 @@ class ProjectController extends Controller {
     }
 
     /**
-     * @Route("/project/add", name="add_project")
-     */
-    public function addAction(Request $request) {
-        $project = new Project();
-
-        $form = $this->createFormBuilder($project)
-            ->add('name', 'text')
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if($form->isValid()) {
-            $slugger = $this->get('slugger');
-
-            $slug = $slugger->slugify($project->getName());
-
-            $project->setSlug($slug);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $existingProject = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
-
-            if(null !== $existingProject) {
-                $form->get('name')->addError(new FormError('Project name is already in use. Please choose another one'));
-            } else {
-                $user = $this->getUser();
-
-                $project->setOwner($user);
-                $project->addUser($user);
-
-                $user->addProject($project);
-
-                $em->persist($project);
-                $em->persist($user);
-
-                $em->flush();
-
-                $this->addFlash('success', 'Project was successfully added');
-
-                return $this->redirectToRoute('show_project', ['slug' => $slug ]);
-            }
-        }
-
-        return $this->render('project/add.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
      * @Route("/project/{project_id}/edit", name="edit_project")
      */
     public function editAction($project_id, Request $request) {
@@ -231,7 +231,7 @@ class ProjectController extends Controller {
         $project = $em->getRepository('AppBundle:Project')->findOneById($project_id);
 
         if(null === $project) {
-            $this->createNotFoundException('The requested project was not found.');
+            throw $this->createNotFoundException('The requested project was not found.');
         }
 
         $this->checkOwnership($project, $this->getUser());
@@ -282,7 +282,7 @@ class ProjectController extends Controller {
         $project = $em->getRepository('AppBundle:Project')->findOneById($project_id);
 
         if(null === $project) {
-            $this->createNotFoundException('The requested project was not found.');
+            throw $this->createNotFoundException('The requested project was not found.');
         }
 
         $this->checkOwnership($project, $this->getUser());
@@ -315,7 +315,7 @@ class ProjectController extends Controller {
         $project = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
         if(null === $project) {
-            $this->createNotFoundException('The requested project was not found.');
+            throw $this->createNotFoundException('The requested project was not found.');
         }
 
         $this->checkOwnership($project, $this->getUser());
