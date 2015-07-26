@@ -29,7 +29,7 @@ class Project {
     private $slug;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $owner;
