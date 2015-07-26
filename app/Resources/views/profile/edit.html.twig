@@ -1,0 +1,44 @@
+{% extends "main.html.twig" %}
+
+{% block title %}Edit profile{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li class="active">Edit profile</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h3><i class="fa fa-user"></i> Edit profile</h3>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_start(formProfile) }}
+            {{ form_errors(formProfile) }}
+            {{ form_widget(formProfile) }}
+
+            <div class="form-buttons">
+                <button class="btn btn-primary">
+                    <i class="fa fa-save"></i> Save profile
+                </button>
+            </div>
+            {{ form_end(formProfile) }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form_start(formPassword) }}
+            {{ form_errors(formPassword) }}
+            {{ form_widget(formPassword) }}
+
+            <div class="form-buttons">
+                <button class="btn btn-primary">
+                    <i class="fa fa-save"></i> Change password
+                </button>
+            </div>
+            {{ form_end(formPassword) }}
+        </div>
+    </div>
+
+
+{% endblock %}

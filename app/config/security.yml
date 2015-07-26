@@ -1,0 +1,29 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        database_users:
+            entity: { class: AppBundle:User, property: username }
+
+    encoders:
+        AppBundle\Entity\User: bcrypt
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+    firewalls:
+        secured_area:
+            pattern: ^/
+
+            anonymous: true
+
+            form_login:
+                check_path: security_login_check
+                login_path: security_login_form
+                csrf_provider: security.csrf.token_manager
+
+            logout:
+                path: security_logout
+                target: homepage

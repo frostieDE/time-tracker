@@ -1,0 +1,18 @@
+{% extends "main.html.twig" %}
+
+{% block title %}Add time{% endblock %}
+
+{% block content %}
+    <h3><i class="fa fa-clock-o"></i> Add time</h3>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+
+    <div class="form-buttons">
+        <button class="btn btn-primary">
+            <i class="fa fa-plus"></i> Add time
+        </button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

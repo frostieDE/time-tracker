@@ -1,0 +1,30 @@
+{% extends "main.html.twig" %}
+
+{% block title %}Delete project{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
+        <li class="active">Delete project</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h3><i class="fa fa-trash-o"></i> Delete project</h3>
+
+    <div class="alert alert-danger">
+        <strong>Alert: </strong> You are going to delete this project entirely. There will be no turning back!
+    </div>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+
+    <div class="form-buttons">
+        <button class="btn btn-danger">
+            <i class="fa fa-trash-o"></i> Delete
+        </button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

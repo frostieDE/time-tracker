@@ -1,0 +1,36 @@
+{% extends "main.html.twig" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li class="active">Show profile</li>
+    </ol>
+{% endblock %}
+
+{% block pre_content %}
+    <div class="section-tout">
+        <div class="container">
+            <h3><img src="{{ user.email|gravatar }}" class="img-circle" width="40" height="40" /> {{ user.username }} </h3>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <h3>Projects</h3>
+
+    <div class="panel panel-default">
+        <div class="list-group">
+            {% for project in user.projects %}
+                <a href="{{ path('show_project', { 'slug' : project.slug }) }}" class="list-group-item">
+                    {{ project.name }}
+                </a>
+            {% else %}
+                <p>No projects.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "main.html.twig" %}
+
+{% block title %}Manage users{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
+        <li class="active">Manage users</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h3><i class="fa fa-users"></i> Manage users</h3>
+
+    <h4>Project members</h4>
+
+    <ul class="list-group">
+    {% for user in members %}
+        <li class="list-group-item clearfix">
+            <div class="pull-left">
+                <p>{{ user.username }}</p>
+            </div>
+
+            {% if user.id != project.owner.id %}
+            <div class="pull-right">
+                <form method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('user.delete') }}" />
+                    <input type="hidden" name="_userid" value="{{ user.id }}" />
+                    <input type="hidden" name="_action" value="delete" />
+
+                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> delete from project</button>
+                </form>
+            </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+
+    <h4>Users</h4>
+
+    <ul class="list-group">
+    {% for user in otherUsers %}
+        <li class="list-group-item clearfix">
+            <div class="pull-left">
+                {{ user.username }}
+            </div>
+
+            <div class="pull-right">
+                <form method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('user.add') }}" />
+                    <input type="hidden" name="_userid" value="{{ user.id }}" />
+                    <input type="hidden" name="_action" value="add" />
+
+                    <button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> add to project</button>
+                </form>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

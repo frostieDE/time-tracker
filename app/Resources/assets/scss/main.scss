@@ -1,0 +1,15 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/flatly-theme/variables";
+
+.section-tout {
+  background: $gray-lighter;
+  padding: 4em 0 4em;
+  margin-top:-$navbar-margin-bottom;
+  margin-bottom:$navbar-margin-bottom;
+}
+
+.form-buttons {
+  padding: 1em;
+  background: $gray-lighter;
+}

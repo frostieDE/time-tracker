@@ -1,0 +1,103 @@
+{% extends "main.html.twig" %}
+
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li class="active">{{ project.name }}</li>
+    </ol>
+{% endblock %}
+
+{% block pre_content %}
+    <div class="section-tout">
+        <div class="container">
+            <h3><i class="fa fa-clock-o"></i> total time spend on this project: {{ totalWorkedTime|timedifference }}</h3>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h3>{{ project.name }}</h3>
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ path('add_time', { slug: project.slug }) }}"><i class="fa fa-plus"></i> add time</a></li>
+                    <li><a href="{{ path('show_times', { slug: project.slug }) }}"><i class="fa fa-clock-o"></i> show times</a></li>
+
+    {% if project.owner.id == app.user.id %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" area-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cogs"></i> Settings <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('edit_project', { 'project_id' :  project.id }) }}"><i class="fa fa-edit"></i> edit project</a></li>
+                            <li><a href="{{ path('delete_project', { 'project_id' :  project.id }) }}"><i class="fa fa-trash-o"></i> delete project</a></li>
+                            <li><a href="{{ path('manage_users', { slug: project.slug }) }}"><i class="fa fa-users"></i> manage users</a></li>
+                        </ul>
+                    </li>
+    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        {% for user in users %}
+        <div class="col-md-4">
+            <h4><img src="{{ user.email|gravatar }}" class="img-circle" width="30" height="30"/> {{ user.username }}</h4>
+            <strong>{{ user.workedTimeInMinutes|timedifference }}</strong>
+            <canvas id="chart-{{ user.username }}" height="100"></canvas>
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    var data = [
+                        {
+                            value: {{ user.workedTimeInMinutes }},
+                            color: "#F7464A",
+                            highlight: "#FF5A5E",
+                            label: "Time worked by {{ user.username }}"
+                        },
+                        {
+                            value: ({{ totalWorkedTime }} - {{ user.workedTimeInMinutes }}),
+                            color: "#46BFBD",
+                            highlight: "#5AD3D1",
+                            label: "Total worked by other project members"
+                        }
+                    ];
+
+                    new Chart(document.getElementById("chart-{{ user.username }}").getContext("2d")).Doughnut(data, {responsive: true});
+                });
+            </script>
+        </div>
+        {% endfor %}
+    </div>
+
+    <canvas height="300" id="statistics"></canvas>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var data = {
+                labels: {{ labels|raw }},
+                datasets: [
+                    {
+                        label: "total worked time",
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        data: {{ data|raw }}
+                    }
+                ]
+            };
+
+            new Chart(document.getElementById("statistics").getContext("2d")).Line(data, { responsive: true });
+        });
+    </script>
+
+{% endblock %}

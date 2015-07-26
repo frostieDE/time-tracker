@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1>Oups, an error occured :(</h1>
+
+    <p>{{ status_text }}</p>.
+
+    <p>
+        <a href="btn btn-primary btn-lg" href="{{ path('homepage') }}" role="button">Go to startpage</a>
+    </p>
+</div>
+{% endblock %}

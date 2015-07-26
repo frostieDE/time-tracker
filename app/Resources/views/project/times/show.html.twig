@@ -1,0 +1,46 @@
+{% extends "main.html.twig" %}
+
+{% block title %}All times{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
+        <li class="active">All times</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h3><i class="fa fa-clock-o"></i> All times</h3>
+
+    <div class="panel panel-default">
+        <ul class="list-group">
+            {% for time in times %}
+            <li class="list-group-item">
+                <h5>{{ time.comment }}</h5>
+                <small>
+                    <img src="{{ time.user.email|gravatar }}" class="img-circle" width="15" height="15"/> {{ time.user.username }}
+                    <i class="fa fa-clock-o"></i> {{ time.workedTimeInMinutes|timedifference }}
+                    <i class="fa fa-calendar"></i> {{ time.start|date }}
+                </small>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <nav>
+        <ul class="pager">
+            {% if page == 1 %}
+                <li class="previous disabled"><a href="#">← Older</a></li>
+            {% else %}
+                <li class="previous"><a href="{{ path('show_times', { slug: project.slug, page: (page - 1)}) }}">← Older</a></li>
+            {% endif %}
+
+            {% if page == pages %}
+                <li class="next disabled"><a href="#">Newer →</a></li>
+            {% else %}
+                <li class="next"><a href="{{ path('show_times', { slug: project.slug, page: (page + 1)}) }}">Newer →</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

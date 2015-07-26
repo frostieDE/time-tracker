@@ -1,0 +1,26 @@
+{% extends "main.html.twig" %}
+
+{% block title %}Add user{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>Admin area</li>
+        <li><a href="{{ path('show_users') }}">User management</a></li>
+        <li class="active">Delete user</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h3><i class="fa fa-trash-o"></i> Delete user</h3>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+
+    <div class="form-buttons">
+        <button class="btn btn-danger">
+            <i class="fa fa-trash-o"></i> Delete
+        </button>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
