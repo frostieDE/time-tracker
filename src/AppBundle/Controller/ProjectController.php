@@ -224,11 +224,11 @@ class ProjectController extends Controller {
     }
 
     /**
-     * @Route("/project/{project_id}/edit", name="edit_project")
+     * @Route("/project/{slug}/edit", name="edit_project")
      */
-    public function editAction($project_id, Request $request) {
+    public function editAction($slug, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $project = $em->getRepository('AppBundle:Project')->findOneById($project_id);
+        $project = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
         if(null === $project) {
             throw $this->createNotFoundException('The requested project was not found.');
@@ -275,11 +275,11 @@ class ProjectController extends Controller {
     }
 
     /**
-     * @Route("/project/{project_id}/delete", name="delete_project")
+     * @Route("/project/{slug}/delete", name="delete_project")
      */
-    public function deleteAction($project_id, Request $request) {
+    public function deleteAction($slug, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $project = $em->getRepository('AppBundle:Project')->findOneById($project_id);
+        $project = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
         if(null === $project) {
             throw $this->createNotFoundException('The requested project was not found.');

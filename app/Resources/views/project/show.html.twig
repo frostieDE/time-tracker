@@ -34,8 +34,8 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('edit_project', { 'project_id' :  project.id }) }}"><i class="fa fa-edit"></i> edit project</a></li>
-                            <li><a href="{{ path('delete_project', { 'project_id' :  project.id }) }}"><i class="fa fa-trash-o"></i> delete project</a></li>
+                            <li><a href="{{ path('edit_project', { slug: project.slug }) }}"><i class="fa fa-edit"></i> edit project</a></li>
+                            <li><a href="{{ path('delete_project', { slug: project.slug }) }}"><i class="fa fa-trash-o"></i> delete project</a></li>
                             <li><a href="{{ path('manage_users', { slug: project.slug }) }}"><i class="fa fa-users"></i> manage users</a></li>
                         </ul>
                     </li>
