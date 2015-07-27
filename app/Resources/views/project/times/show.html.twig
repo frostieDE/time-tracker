@@ -30,16 +30,11 @@
 
     <nav>
         <ul class="pager">
-            {% if page == 1 %}
-                <li class="previous disabled"><a href="#">← Older</a></li>
-            {% else %}
-                <li class="previous"><a href="{{ path('show_times', { slug: project.slug, page: (page - 1)}) }}">← Older</a></li>
+            {% if page > 1 %}
+                <li class="previous"><a href="{{ path('show_times', { slug: project.slug, page: (page - 1)}) }}">← Newer</a></li>
             {% endif %}
-
-            {% if page == pages %}
-                <li class="next disabled"><a href="#">Newer →</a></li>
-            {% else %}
-                <li class="next"><a href="{{ path('show_times', { slug: project.slug, page: (page + 1)}) }}">Newer →</a></li>
+            {% if page != pages %}
+                <li class="next"><a href="{{ path('show_times', { slug: project.slug, page: (page + 1)}) }}">Older →</a></li>
             {% endif %}
         </ul>
     </nav>

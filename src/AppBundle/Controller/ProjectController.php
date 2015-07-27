@@ -192,6 +192,7 @@ class ProjectController extends Controller {
         $repository = $this->getDoctrine()->getRepository('AppBundle:WorkedTime');
         $query = $repository->createQueryBuilder('t')
             ->where('t.project = :project')
+            ->orderBy('t.start', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($entriesPerPage)
             ->setParameter('project', $project)
