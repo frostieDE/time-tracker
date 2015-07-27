@@ -22,6 +22,12 @@
 {% block content %}
     <h3>Your Projects</h3>
 
+    {% if projects is empty %}
+    <p>
+        You are not part of any project.
+        <a href="{{ path('add_project') }}" class="btn btn-primary btn-sm" role="button"><i class="fa fa-plus"></i> Create one</a>
+    </p>
+    {% else %}
     <div class="panel panel-default">
         <div class="list-group">
             {% for project in projects %}
@@ -30,9 +36,8 @@
 
                 <p><i class="fa fa-clock-o"></i> {{ project.workedTimeInMinutes|timedifference }}</p>
             </a>
-            {% else %}
-            <p>No projects.</p>
             {% endfor %}
         </div>
     </div>
+    {% endif %}
 {% endblock %}
