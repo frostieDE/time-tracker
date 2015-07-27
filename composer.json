@@ -25,7 +25,7 @@
         "erusev/parsedown" : "~1.5",
         "twig/extensions" : "~1.2",
         "leafo/scssphp" : "~0.1.5",
-        "easybook/slugger": "1.*"
+        "javiereguiluz/easyslugger": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

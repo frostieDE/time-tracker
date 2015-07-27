@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "236e41c06375710af950e6573cbb311f",
+    "hash": "a05906cc919bdbce3bcd627c382baf48",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -826,37 +826,6 @@
             "time": "2014-12-16 13:45:01"
         },
         {
-            "name": "easybook/slugger",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/easybook/slugger.git",
-                "reference": "40609cd6b6019c5f194affe01f88c049f428e04e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/easybook/slugger/zipball/40609cd6b6019c5f194affe01f88c049f428e04e",
-                "reference": "40609cd6b6019c5f194affe01f88c049f428e04e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Easybook": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A fast and easy to use slugger with full UTF-8 support.",
-            "abandoned": "javiereguiluz/slugger",
-            "time": "2014-04-08 20:29:46"
-        },
-        {
             "name": "erusev/parsedown",
             "version": "1.5.3",
             "source": {
@@ -945,6 +914,36 @@
                 "parameters management"
             ],
             "time": "2015-06-03 08:27:03"
+        },
+        {
+            "name": "javiereguiluz/easyslugger",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/javiereguiluz/EasySlugger.git",
+                "reference": "11524a3fd70e3f0c98043755a0ffa228f2529211"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/javiereguiluz/EasySlugger/zipball/11524a3fd70e3f0c98043755a0ffa228f2529211",
+                "reference": "11524a3fd70e3f0c98043755a0ffa228f2529211",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EasySlugger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A fast and easy to use slugger with full UTF-8 support.",
+            "time": "2015-04-12 19:57:10"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1867,6 +1866,37 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "easybook/slugger",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easybook/slugger.git",
+                "reference": "40609cd6b6019c5f194affe01f88c049f428e04e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/easybook/slugger/zipball/40609cd6b6019c5f194affe01f88c049f428e04e",
+                "reference": "40609cd6b6019c5f194affe01f88c049f428e04e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Easybook": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A fast and easy to use slugger with full UTF-8 support.",
+            "abandoned": "javiereguiluz/slugger",
+            "time": "2014-04-08 20:29:46"
+        },
         {
             "name": "sensio/generator-bundle",
             "version": "v2.5.3",
