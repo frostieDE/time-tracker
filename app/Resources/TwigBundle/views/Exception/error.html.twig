@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="{{ _charset }}" />
+        <title>An Error Occurred: {{ status_text }}</title>
+        <link rel="stylesheet" href="/css/static.css" type="text/css" />
+    </head>
+    <body>
+        <h1>{{ status_code }}</h1>
+        <h3>{{ status_text }}</h3>
+
+        <hr />
+
+        <div>
+            Something is broken. Please let us know what you were doing when this error occurred.
+            We will fix it as soon as possible. Sorry for any inconvenience caused.
+        </div>
+    </body>
+</html>
