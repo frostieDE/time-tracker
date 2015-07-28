@@ -169,9 +169,82 @@ class ProjectController extends Controller {
             return $this->redirectToRoute('show_project', ['slug' => $slug ]);
         }
 
-        return $this->render('project/times/time.html.twig', [
+        return $this->render('project/times/add.html.twig', [
             'project' => $project,
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/project/{slug}/times/{id}/edit", name="edit_time")
+     */
+    public function editTimeAction($slug, $id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $time = $em->getRepository('AppBundle:WorkedTime')->findOneById($id);
+
+        if(null === $time) {
+            throw $this->createNotFoundException('The requested time was not found.');
+        }
+
+        if($time->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException('You cannot edit the time of another user');
+        }
+
+        $form = $this->createFormBuilder($time)
+            ->add('start', 'datetime')
+            ->add('end', 'datetime')
+            ->add('comment')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $em->persist($time);
+            $em->flush();
+
+            $this->addFlash('success', 'Time was updated successfully');
+
+            return $this->redirectToRoute('show_times', ['slug' => $time->getProject()->getSlug() ]);
+        }
+
+        return $this->render('project/times/edit.html.twig', [
+            'form' => $form->createView(),
+            'project' => $time->getProject()
+        ]);
+    }
+
+    /**
+     * @Route("/project/{slug}/times/{id}/delete", name="delete_time")
+     */
+    public function deleteTimeAction($slug, $id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $time = $em->getRepository('AppBundle:WorkedTime')->findOneById($id);
+
+        if(null === $time) {
+            throw $this->createNotFoundException('The requested time was not found.');
+        }
+
+        if($time->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException('You cannot delete the time of another user');
+        }
+
+        $form = $this->createFormBuilder()
+            ->add('confirm', 'checkbox', [ 'required' => true, 'label' => 'Okay, got it!' ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $em->remove($time);
+            $em->flush();
+
+            $this->addFlash('success', 'Time was successfully removed');
+            return $this->redirectToRoute('show_times', [ 'slug' => $time->getProject()->getSlug() ]);
+        }
+
+        return $this->render('project/times/delete.html.twig', [
+            'form' => $form->createView(),
+            'project' => $time->getProject()
         ]);
     }
 

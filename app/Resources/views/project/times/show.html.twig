@@ -16,13 +16,24 @@
     <div class="panel panel-default">
         <ul class="list-group">
             {% for time in times %}
-            <li class="list-group-item">
+            <li class="list-group-item worked-time">
                 <h5>{{ time.comment }}</h5>
                 <small>
                     <img src="{{ time.user.email|gravatar }}" class="img-circle" width="15" height="15"/> {{ time.user.username }}
                     <i class="fa fa-clock-o"></i> {{ time.workedTimeInMinutes|timedifference }}
                     <i class="fa fa-calendar"></i> {{ time.start|date }}
                 </small>
+                {% if time.user.id == app.user.id %}
+                <div class="buttons">
+                    <a href="{{ path('edit_time', { slug: project.slug, id: time.id }) }}" class="btn btn-primary btn-xs" role="button">
+                        <i class="fa fa-edit"></i> edit
+                    </a>
+
+                    <a href="{{ path('delete_time', { slug: project.slug, id: time.id }) }}" class="btn btn-danger btn-xs" role="button">
+                        <i class="fa fa-trash"></i> delete
+                    </a>
+                </div>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>

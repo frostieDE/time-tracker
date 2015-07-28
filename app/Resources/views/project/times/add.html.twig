@@ -2,6 +2,14 @@
 
 {% block title %}Add time{% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
+        <li class="active">Add time</li>
+    </ol>
+{% endblock %}
+
 {% block content %}
     <h3><i class="fa fa-clock-o"></i> Add time</h3>
 
