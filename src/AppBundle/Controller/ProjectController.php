@@ -135,7 +135,7 @@ class ProjectController extends Controller {
     }
 
     /**
-     * @Route("/project/{slug}/add-time", name="add_time")
+     * @Route("/project/{slug}/times/add", name="add_time")
      */
     public function addTimeAction($slug, Request $request) {
         $em = $this->getDoctrine()->getManager();
