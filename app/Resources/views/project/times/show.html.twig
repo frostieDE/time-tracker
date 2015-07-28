@@ -19,7 +19,7 @@
             <li class="list-group-item worked-time">
                 <h5>{{ time.comment }}</h5>
                 <small>
-                    <img src="{{ time.user.email|gravatar }}" class="img-circle" width="15" height="15"/> {{ time.user.username }}
+                    <img src="{{ time.user.email|gravatar }}" class="img-circle" width="15" height="15"/> <a href="{{ path('show_profile', { username: time.user.username}) }}">{{ time.user.username }}</a>
                     <i class="fa fa-clock-o"></i> {{ time.workedTimeInMinutes|timedifference }}
                     <i class="fa fa-calendar"></i> {{ time.start|date }}
                 </small>
