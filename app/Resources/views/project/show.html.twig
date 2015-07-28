@@ -21,8 +21,8 @@
     <h3>{{ project.name }}</h3>
 
     <nav class="navbar navbar-default">
-        <div class="container">
-            <div>
+        <div class="container-fluid">
+            <div class="clearfix">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ path('add_time', { slug: project.slug }) }}"><i class="fa fa-plus"></i> add time</a></li>
                     <li><a href="{{ path('show_times', { slug: project.slug }) }}"><i class="fa fa-clock-o"></i> show times</a></li>
@@ -40,6 +40,15 @@
                         </ul>
                     </li>
     {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{{ path('show_profile', {username: project.owner.username}) }}" title="owns this project">
+                            <img src="{{ project.owner.email|gravatar }}" class="img-circle" width="20" height="20"/>
+                            {{ project.owner.username }}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

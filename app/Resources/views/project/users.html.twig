@@ -15,7 +15,7 @@
 
     <h4>Project members</h4>
 
-    <ul class="list-group">
+    <ul class="list-group user-list">
     {% for user in members %}
         <li class="list-group-item clearfix">
             <div class="pull-left">
@@ -29,7 +29,7 @@
                     <input type="hidden" name="_userid" value="{{ user.id }}" />
                     <input type="hidden" name="_action" value="delete" />
 
-                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> delete from project</button>
+                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> delete from project</button>
                 </form>
             </div>
             {% endif %}
@@ -39,11 +39,11 @@
 
     <h4>Users</h4>
 
-    <ul class="list-group">
+    <ul class="list-group user-list">
     {% for user in otherUsers %}
         <li class="list-group-item clearfix">
             <div class="pull-left">
-                {{ user.username }}
+                <p>{{ user.username }}</p>
             </div>
 
             <div class="pull-right">
@@ -52,7 +52,7 @@
                     <input type="hidden" name="_userid" value="{{ user.id }}" />
                     <input type="hidden" name="_action" value="add" />
 
-                    <button class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> add to project</button>
+                    <button class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> add to project</button>
                 </form>
             </div>
         </li>
