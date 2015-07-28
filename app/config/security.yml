@@ -27,3 +27,9 @@ security:
             logout:
                 path: security_logout
                 target: homepage
+
+            remember_me:
+                key: "%secret%"
+                lifetime: 604800 # 1 week
+                path: /
+                secure: %ssl%
