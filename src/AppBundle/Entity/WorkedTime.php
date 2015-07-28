@@ -34,8 +34,8 @@ class WorkedTime {
     private $end;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Project")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="times")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $project;
 

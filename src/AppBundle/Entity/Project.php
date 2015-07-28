@@ -39,8 +39,14 @@ class Project {
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="WorkedTime", mappedBy="project")
+     */
+    private $times;
+
     public function __construct() {
         $this->users = new ArrayCollection();
+        $this->times = new ArrayCollection();
     }
 
     /**
@@ -153,5 +159,38 @@ class Project {
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Add times
+     *
+     * @param \AppBundle\Entity\WorkedTime $times
+     * @return Project
+     */
+    public function addTime(\AppBundle\Entity\WorkedTime $times)
+    {
+        $this->times[] = $times;
+
+        return $this;
+    }
+
+    /**
+     * Remove times
+     *
+     * @param \AppBundle\Entity\WorkedTime $times
+     */
+    public function removeTime(\AppBundle\Entity\WorkedTime $times)
+    {
+        $this->times->removeElement($times);
+    }
+
+    /**
+     * Get times
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTimes()
+    {
+        return $this->times;
     }
 }
