@@ -1,64 +1,76 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <nav class="navbar navbar-static-top navbar-default">
+    <div class="wrapper">
+        <nav class="navbar navbar-static-top navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav" aria-expanded="false">
+                        <span class="sr-only">{% trans %}other.togglenavigation{% endtrans %}</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> {% trans %}app.name{% endtrans %}</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="nav">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path('dashboard') }}"><i class="fa fa-th-large"></i> {% trans %}dashboard.index{% endtrans %}</a></li>
+                        <li><a href="{{ path('add_project') }}"><i class="fa fa-plus"></i> {% trans %}project.new.header{% endtrans %}</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('show_users') }}"><i class="fa fa-users"></i> {% trans %}users.header{% endtrans %}</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ path('edit_profile') }}"><img src="{{ app.user.email|gravatar }}" class="img-circle" width="20" height="20" /> {{ app.user.username }}</a></li>
+                        <li><a href="{{ path('security_logout') }}"><i class="fa fa-sign-out"></i> {% trans %}security.logout{% endtrans %}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+        {% block pre_content %}{% endblock %}
+
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav" aria-expanded="false">
-                    <span class="sr-only">{% trans %}other.togglenavigation{% endtrans %}</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+            {% block breadcrumb %}{% endblock %}
 
-                <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> {% trans %}app.name{% endtrans %}</a>
+            {% for successMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ successMessage|trans }}
             </div>
+            {% endfor %}
 
-            <div class="collapse navbar-collapse" id="nav">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ path('dashboard') }}"><i class="fa fa-th-large"></i> {% trans %}dashboard.index{% endtrans %}</a></li>
-                    <li><a href="{{ path('add_project') }}"><i class="fa fa-plus"></i> {% trans %}project.new.header{% endtrans %}</a></li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('show_users') }}"><i class="fa fa-users"></i> {% trans %}users.header{% endtrans %}</a></li>
-                    {% endif %}
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ path('edit_profile') }}"><img src="{{ app.user.email|gravatar }}" class="img-circle" width="20" height="20" /> {{ app.user.username }}</a></li>
-                    <li><a href="{{ path('security_logout') }}"><i class="fa fa-sign-out"></i> {% trans %}security.logout{% endtrans %}</a></li>
-                </ul>
+            {% for infoMessage in app.session.flashbag.get('info') %}
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ infoMessage|trans }}
             </div>
+            {% endfor %}
+
+            {% for alertMessage in app.session.flashbag.get('alert') %}
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ alertMessage|trans }}
+            </div>
+            {% endfor %}
+
+            {% block content %}{% endblock %}
         </div>
-    </nav>
 
-    {% block pre_content %}{% endblock %}
-
-    <div class="container">
-        {% block breadcrumb %}{% endblock %}
-
-        {% for successMessage in app.session.flashbag.get('success') %}
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ successMessage|trans }}
+        {% block post_content %}{% endblock %}
         </div>
-        {% endfor %}
 
-        {% for infoMessage in app.session.flashbag.get('info') %}
-        <div class="alert alert-info alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ infoMessage|trans }}
-        </div>
-        {% endfor %}
+        <footer>
+            <div class="container">
+                <p class="app"><i class="fa fa-clock"></i> {{ 'app.name'|trans }} {{ app_version }}</p>
 
-        {% for alertMessage in app.session.flashbag.get('alert') %}
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ alertMessage|trans }}
-        </div>
-        {% endfor %}
-
-        {% block content %}{% endblock %}
+                <a href="https://github.com/frostieDE/time-tracker"><i class="fa fa-github"></i> GitHub</a>
+            </div>
+        </footer>
     </div>
-
-    {% block post_content %}{% endblock %}
 {% endblock %}
