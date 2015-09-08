@@ -3,53 +3,65 @@
 {% block title %}{{ 'security.login'|trans }}{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-static-top navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> {{ 'app.name'|trans }}</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey|trans(error.messageData) }}
-        </div>
-        {% endif %}
-
-        <form action="{{ path('security_login_check') }}" method="post">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-sign-in"></i> {{ 'security.login'|trans }}</h3>
-                </div>
-
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="username">{{ 'form.username'|trans }}</label>
-                        <input type="text" id="username" name="_username" class="form-control" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">{{ 'form.password'|trans }}</label>
-                        <input type="password" id="password" name="_password" class="form-control" />
-                    </div>
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="_remember_me" /> {{ 'form.remember_me'|trans }}
-                        </label>
-                    </div>
-                </div>
-
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-
-                <div class="panel-footer">
-                    <button class="btn btn-primary btn-sm" type="submit">
-                        <i class="fa fa-sign-in"></i> {{ 'security.login'|trans }}
-                    </button>
+    <div class="wrapper">
+        <nav class="navbar navbar-static-top navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> {{ 'app.name'|trans }}</a>
                 </div>
             </div>
-        </form>
+        </nav>
+
+        <div class="content">
+            <div class="container">
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData) }}
+                </div>
+                {% endif %}
+
+                <form action="{{ path('security_login_check') }}" method="post">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-sign-in"></i> {{ 'security.login'|trans }}</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="username">{{ 'form.username'|trans }}</label>
+                                <input type="text" id="username" name="_username" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">{{ 'form.password'|trans }}</label>
+                                <input type="password" id="password" name="_password" class="form-control" />
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="_remember_me" /> {{ 'form.remember_me'|trans }}
+                                </label>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
+                        <div class="panel-footer">
+                            <button class="btn btn-primary btn-sm" type="submit">
+                                <i class="fa fa-sign-in"></i> {{ 'security.login'|trans }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p class="app"><i class="fa fa-clock"></i> {{ 'app.name'|trans }} {{ app_version }}</p>
+
+                <a href="https://github.com/frostieDE/time-tracker"><i class="fa fa-github"></i> GitHub</a>
+            </div>
+        </footer>
     </div>
 {% endblock %}
