@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class StartBeforeEndConstraint extends Constraint {
 
-    public $message = 'Start time must be before end time';
+    public $message = 'startbeforeend';
 
     public function getTargets() {
         return self::CLASS_CONSTRAINT;

@@ -40,9 +40,12 @@ class ProfileController extends Controller {
         ];
 
         $formProfile = $this->createFormBuilder($defaultData)
-            ->add('username', 'text', [ 'read_only' => true ])
+            ->add('username', 'text', [
+                'read_only' => true,
+                'label' => 'form.username',
+            ])
             ->add('email', 'email', [
-                'label' => 'E-Mail',
+                'label' => 'form.email',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
@@ -59,12 +62,12 @@ class ProfileController extends Controller {
                     new Length(['min' => static::PasswordMinLength])
                 ],
                 'required' => true,
-                'invalid_message' => 'The password fields must match',
+                'invalid_message' => $this->get('translator')->trans('form.password_match'),
                 'first_options' => [
-                    'label' => 'Password'
+                    'label' => 'form.password'
                 ],
                 'second_options' => [
-                    'label' => 'Repeat password'
+                    'label' => 'form.confirm_password'
                 ]
             ])
             ->getForm();
@@ -79,7 +82,7 @@ class ProfileController extends Controller {
             $user = $em->getRepository('AppBundle:User')->findOneByEmail($email);
 
             if($user !== null && $user->getId() !== $this->getUser()->getId()) {
-                $formProfile->get('email')->addError(new FormError('This E-Mail address is already in use.'));
+                $formProfile->get('email')->addError(new FormError($this->get('translator')->trans('error.mail_already_used')));
             } else {
                 $user = $this->getUser();
                 $user->setEmail($data['email']);
@@ -87,7 +90,7 @@ class ProfileController extends Controller {
                 $em->persist($user);
                 $em->flush();
 
-                $this->addFlash('success', 'Your profile was updated successfully');
+                $this->addFlash('success', 'profile.edit.success.profile');
 
                 return $this->redirectToRoute('edit_profile');
             }
@@ -110,7 +113,7 @@ class ProfileController extends Controller {
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Your password was changed successfully');
+            $this->addFlash('success', 'profile.edit.success.password');
 
             return $this->redirectToRoute('edit_profile');
         }

@@ -4,17 +4,17 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('dashboard') }}">{{ 'dashboard.index'|trans }}</a></li>
         <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
-        <li class="active">Delete project</li>
+        <li class="active">{{ 'project.delete.header'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-trash-o"></i> Delete project</h3>
+    <h3><i class="fa fa-trash-o"></i> {{ 'project.delete.header'|trans }}</h3>
 
     <div class="alert alert-danger">
-        <strong>Alert: </strong> You are going to delete this project entirely. There will be no turning back!
+        <strong>{{ 'other.alert'|trans }}: </strong> {{ 'project.delete.info'|trans }}
     </div>
 
     {{ form_start(form) }}
@@ -23,7 +23,7 @@
 
     <div class="form-buttons">
         <button class="btn btn-danger">
-            <i class="fa fa-trash-o"></i> Delete
+            <i class="fa fa-trash-o"></i> {{ 'project.delete.submit'|trans }}
         </button>
     </div>
     {{ form_end(form) }}

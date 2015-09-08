@@ -4,14 +4,14 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li>Admin area</li>
-        <li><a href="{{ path('show_users') }}">User management</a></li>
-        <li class="active">Add user</li>
+        <li>{{ 'admin.header'|trans }}</li>
+        <li><a href="{{ path('show_users') }}">{{ 'users.header'|trans }}</a></li>
+        <li class="active">{{ 'users.add.header'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-user"></i> Add user</h3>
+    <h3><i class="fa fa-user"></i> {{ 'users.add.header'|trans }}</h3>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -19,7 +19,7 @@
 
     <div class="form-buttons">
         <button class="btn btn-primary">
-            <i class="fa fa-plus"></i> Create
+            <i class="fa fa-plus"></i> {{ 'users.add.submit'|trans }}
         </button>
     </div>
     {{ form_end(form) }}

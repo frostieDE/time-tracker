@@ -4,8 +4,8 @@
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-        <li class="active">Show profile</li>
+        <li><a href="{{ path('dashboard') }}">{{ 'dashboard.index'|trans }}</a></li>
+        <li class="active">{{ 'profile.show.header'|trans }}</li>
     </ol>
 {% endblock %}
 
@@ -19,7 +19,7 @@
 
 {% block content %}
 
-    <h3>Projects</h3>
+    <h3>{{ 'profile.show.projects.header'|trans }}</h3>
 
     <div class="panel panel-default">
         <div class="list-group">
@@ -28,7 +28,7 @@
                     {{ project.name }}
                 </a>
             {% else %}
-                <p>No projects.</p>
+                <p>{{ 'profile.show.projects.empty'|trans }}</p>
             {% endfor %}
         </div>
     </div>

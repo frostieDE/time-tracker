@@ -34,7 +34,9 @@ class UserController extends Controller {
         $user = new User();
 
         $form = $this->createFormBuilder($user)
-            ->add('username')
+            ->add('username', 'text', [
+                'label' => 'form.username'
+            ])
             ->add('password', 'repeated', [
                 'type' => 'password',
                 'constraints' => [
@@ -42,15 +44,22 @@ class UserController extends Controller {
                     new Length(['min' => static::PasswordMinLength])
                 ],
                 'required' => true,
-                'invalid_message' => 'The password fields must match',
+                'invalid_message' => $this->get('translator')->trans('form.password_match'),
                 'first_options' => [
-                    'label' => 'Password'
+                    'label' => 'form.password'
                 ],
                 'second_options' => [
-                    'label' => 'Repeat password'
+                    'label' => 'form.confirm_password'
                 ]
             ])
-            ->add('email')
+            ->add('email', 'email', [
+                'label' => 'form.email',
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                    new Email()
+                ]
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -61,17 +70,17 @@ class UserController extends Controller {
             $existingUser = $em->getRepository('AppBundle:User')->findOneByUsername($user->getUsername());
 
             if(null !== $existingUser) {
-                $form->get('username')->addError(new FormError('Username is aleady in use'));
+                $form->get('username')->addError(new FormError($this->get('translator')->trans('error.username_already_in_use')));
             } else {
                 $existingUser = $em->getRepository('AppBundle:User')->findOneByEmail($user->getEmail());
 
                 if(null !== $existingUser) {
-                    $form->get('email')->addError(new FormError('E-Mail address is already in use'));
+                    $form->get('email')->addError(new FormError($this->get('translator')->trans('error.mail_already_used')));
                 } else {
                     $em->persist($user);
                     $em->flush();
 
-                    $this->addFlash('success', 'User added successfully');
+                    $this->addFlash('success', 'users.add.success');
 
                     return $this->redirectToRoute('show_users');
                 }
@@ -99,9 +108,12 @@ class UserController extends Controller {
         ];
 
         $formProfile = $this->createFormBuilder($defaultData)
-            ->add('username', 'text', [ 'read_only' => true ])
+            ->add('username', 'text', [
+                'read_only' => true,
+                'label' => 'form.username'
+            ])
             ->add('email', 'email', [
-                'label' => 'E-Mail',
+                'label' => 'form.email',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
@@ -118,12 +130,12 @@ class UserController extends Controller {
                     new Length(['min' => static::PasswordMinLength])
                 ],
                 'required' => true,
-                'invalid_message' => 'The password fields must match',
+                'invalid_message' => $this->get('translator')->trans('form.password_match'),
                 'first_options' => [
-                    'label' => 'Password'
+                    'label' => 'form.password'
                 ],
                 'second_options' => [
-                    'label' => 'Repeat password'
+                    'label' => 'form.confirm_password'
                 ]
             ])
             ->getForm();
@@ -138,14 +150,14 @@ class UserController extends Controller {
             $existingUser = $em->getRepository('AppBundle:User')->findOneByEmail($email);
 
             if($existingUser !== null && $existingUser->getId() !== $user->getId()) {
-                $formProfile->get('email')->addError(new FormError('This E-Mail address is already in use.'));
+                $formProfile->get('email')->addError(new FormError($this->get('translator')->trans('error.mail_already_in_use')));
             } else {
                 $user->setEmail($data['email']);
 
                 $em->persist($user);
                 $em->flush();
 
-                $this->addFlash('success', 'User was successfully updated');
+                $this->addFlash('success', 'users.edit.success');
 
                 return $this->redirectToRoute('edit_user', [ 'username' => $user->getUsername() ]);
             }
@@ -167,7 +179,7 @@ class UserController extends Controller {
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Password was successfully changed');
+            $this->addFlash('success', 'users.edit.success');
 
             return $this->redirectToRoute('edit_user', [ 'username' => $user->getUsername() ]);
         }
@@ -189,15 +201,17 @@ class UserController extends Controller {
         }
 
         if($user->getId() === 1) {
-            $this->addFlash('alert', 'You cannot remove user with the ID 1.');
+            $this->addFlash('alert', 'users.delete.error.id_one');
             $this->redirectToRoute('show_users');
         } else if($user->getId() === $this->getUser()->getId()) {
-            $this->addFlash('alert', 'You cannot remove yourself.');
+            $this->addFlash('alert', 'users.delete.error.yourself');
             $this->redirectToRoute('show_users');
         }
 
         $form = $this->createFormBuilder()
-            ->add('confirm', 'checkbox', [ 'required' => true, 'label' => 'Okay, got it!' ])
+            ->add('confirm', 'checkbox', [
+                'required' => true,
+                'label' => 'form.got_it' ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -208,7 +222,7 @@ class UserController extends Controller {
             $em->remove($user);
             $em->flush();
 
-            $this->addFlash('success', 'User was successfully deleted');
+            $this->addFlash('success', 'users.delete.success');
             return $this->redirectToRoute('show_users');
         }
 

@@ -1,21 +1,21 @@
 {% extends "main.html.twig" %}
 
-{% block title %}Delete time{% endblock %}
+{% block title %}{{ 'project.times.delete.header'|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('dashboard') }}">{{ 'dashboard.index'|trans }}</a></li>
         <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
-        <li><a href="{{ path('show_times', { slug: project.slug }) }}">All times</a></li>
-        <li class="active">Delete time</li>
+        <li><a href="{{ path('show_times', { slug: project.slug }) }}">{{ 'project.times.show.header'|trans }}</a></li>
+        <li class="active">{{ 'project.times.delete.header'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-trash-o"></i> Delete time</h3>
+    <h3><i class="fa fa-trash-o"></i> {{ 'project.times.delete.header'|trans }}</h3>
 
     <div class="alert alert-danger">
-        <strong>Alert: </strong> You are going to delete this time.
+        <strong>{{ 'other.alert'|trans }}: </strong> {{ 'project.times.delete.info'|trans }}
     </div>
 
     {{ form_start(form) }}
@@ -24,7 +24,7 @@
 
     <div class="form-buttons">
         <button class="btn btn-danger">
-            <i class="fa fa-trash-o"></i> Delete
+            <i class="fa fa-trash-o"></i> {{ 'project.times.delete.header'|trans }}
         </button>
     </div>
     {{ form_end(form) }}

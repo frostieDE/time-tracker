@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sign in{% endblock %}
+{% block title %}{{ 'security.login'|trans }}{% endblock %}
 
 {% block body %}
     <nav class="navbar navbar-static-top navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> Time Tracker</a>
+                <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> {{ 'app.name'|trans }}</a>
             </div>
         </div>
     </nav>
@@ -21,23 +21,23 @@
         <form action="{{ path('security_login_check') }}" method="post">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-sign-in"></i> Sign in</h3>
+                    <h3 class="panel-title"><i class="fa fa-sign-in"></i> {{ 'security.login'|trans }}</h3>
                 </div>
 
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="username">Username</label>
+                        <label for="username">{{ 'form.username'|trans }}</label>
                         <input type="text" id="username" name="_username" class="form-control" />
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">{{ 'form.password'|trans }}</label>
                         <input type="password" id="password" name="_password" class="form-control" />
                     </div>
 
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="_remember_me" /> Remember me
+                            <input type="checkbox" name="_remember_me" /> {{ 'form.remember_me'|trans }}
                         </label>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
                 <div class="panel-footer">
                     <button class="btn btn-primary btn-sm" type="submit">
-                        <i class="fa fa-sign-in"></i> Sign in
+                        <i class="fa fa-sign-in"></i> {{ 'security.login'|trans }}
                     </button>
                 </div>
             </div>

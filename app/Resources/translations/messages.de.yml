@@ -1,0 +1,142 @@
+app:
+  name: Zeiterfassung
+
+security:
+  logout: Abmelden
+  login: Anmelden
+
+dashboard:
+  index: Dashboard
+  welcome: Willkommen im Dashboard, %username%.
+  projects:
+    header: Projekte
+    empty: Aktuell keine Projekte vorhanden.
+    create: Projekt erstellen
+
+profile:
+  show:
+    header: Profil anzeigen
+    projects:
+      header: Projekte
+      empty: Keine Projekte.
+  edit:
+    header: Profil bearbeiten
+    submit: Profil speichern
+    password: Passwort ändern
+
+form:
+  username: Benutzername
+  email: E-Mail
+  password: Passwort
+  confirm_password: Passwort bestätigen
+  password_match: Die Passwörter müssen übereinstimmen
+  remember_me: angemeldet bleiben
+  got_it: Okay, habe ich verstanden!
+  comment: Kommentar
+
+  project_name: Name
+
+  time_start: Start
+  time_end: Ende
+
+error:
+  mail_already_in_use: Die E-Mail Adresse wird bereits verwendet
+  username_already_in_use: Der Benutzername wird bereits verwendet
+  project_already_in_use: Der Projektname wird bereits verwendet
+
+
+project:
+  index:
+    time_spend: Gesamte Arbeitszeit für dieses Projekt: %time%
+    settings: Einstellungen
+    owner: Eigentümer des Projektes
+
+    chart:
+      total_time: Gesamte Arbeitszeit
+      time_worked_by: Arbeitszeit von %username%
+      time_worked_others: Arbeitszeit anderer Mitglieder
+
+  new:
+    header: Neues Projekt
+    submit: Projekt erstellen
+
+  edit:
+    header: Projekt bearbeiten
+    submit: Speichern
+
+  delete:
+    header: Projekt löschen
+    submit: Löschen
+    info: Das Löschen des Projektes kann nicht rückgängig gemacht werden.
+
+  users:
+    header: Benutzer verwalten
+    members: Mitglieder
+    others: Benutzer
+    add: zum Projekt hinzufügen
+    delete: aus Projekt entfernen
+
+    success:
+      add: Benutzer erfolgreich zum Projekt hinzugefügt
+      delete: Benutzer erfolgreich aus dem Projekt gelöscht
+
+  times:
+    add:
+      header: Arbeitszeit hinzufügen
+      submit: hinzufügen
+      success: Arbeitszeit erfolgreich hinzugefügt
+
+    edit:
+      header: Arbeitszeit bearbeiten
+      submit: speichern
+      success: Arbeitszeit erfolgreich aktualisert
+
+    delete:
+      header: Arbeitszeit löschen
+      submit: löschen
+      success: Arbeitszeit erfolgreich gelöscht
+      info: Diese Arbeitszeit wird gelöscht
+
+    show:
+      header: Arbeitszeiten anzeigen
+
+users:
+  header: Benutzer
+
+  add:
+    header: Benutzer hinzufügen
+    submit: Erstellen
+    success: Benutzer erfolgreich erstellt
+
+  edit:
+    header: Benutzer bearbeiten
+    success: Benutzer erfolgreich aktualisiert
+
+  delete:
+    header: Benutzer löschen
+    submit: Löschen
+    success: Benutzer erfolgreich gelöscht
+    error:
+      id_one: Der Benutzer mit der ID 1 kann nicht gelöscht werden
+      yourself: Der eigene Benutzer kann nicht gelöscht werden
+
+admin:
+  header: Verwaltung
+
+other:
+  actions:
+    header: Aktionen
+    edit: bearbeiten
+    delete: löschen
+
+  alert: Achtung
+  info: Info
+  togglenavigation: Menü
+
+time_difference:
+  minute: Minute
+  minutes: Minuten
+  hour: Stunde
+  hours: Stunden
+  day: Tag
+  days: Tage

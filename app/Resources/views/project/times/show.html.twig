@@ -1,17 +1,17 @@
 {% extends "main.html.twig" %}
 
-{% block title %}All times{% endblock %}
+{% block title %}{{ 'project.times.show.header'|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('dashboard') }}">{{ 'dashboard.index'|trans }}</a></li>
         <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
-        <li class="active">All times</li>
+        <li class="active">{{ 'project.times.show.header'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-clock-o"></i> All times</h3>
+    <h3><i class="fa fa-clock-o"></i> {{ 'project.times.show.header'|trans }}</h3>
 
     <div class="panel panel-default">
         <ul class="list-group">
@@ -26,11 +26,11 @@
                 {% if time.user.id == app.user.id %}
                 <div class="buttons">
                     <a href="{{ path('edit_time', { slug: project.slug, id: time.id }) }}" class="btn btn-primary btn-xs" role="button">
-                        <i class="fa fa-edit"></i> edit
+                        <i class="fa fa-edit"></i> {{ 'other.actions.edit'|trans }}
                     </a>
 
                     <a href="{{ path('delete_time', { slug: project.slug, id: time.id }) }}" class="btn btn-danger btn-xs" role="button">
-                        <i class="fa fa-trash"></i> delete
+                        <i class="fa fa-trash"></i> {{ 'other.actions.delete'|trans }}
                     </a>
                 </div>
                 {% endif %}

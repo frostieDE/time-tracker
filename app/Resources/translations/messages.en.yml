@@ -1,0 +1,150 @@
+app:
+  name: Time Tracker
+
+security:
+  logout: Sign out
+  login: Sign in
+
+dashboard:
+  index: Dashboard
+  welcome: Welcome to your dashboard, %username%.
+  projects:
+    header: Your projects
+    empty: You are not part of any project.
+    create: Create one
+
+profile:
+  show:
+    header: Show profile
+    projects:
+      header: Projects
+      empty: No projects
+  edit:
+    header: Edit profile
+    submit: Save profile
+    password: Change password
+    success:
+      profile: Your profile was updated successfully
+      password: Your password was updated successfully
+
+form:
+  username: Username
+  email: E-Mail
+  password: Password
+  confirm_password: Confirm password
+  password_match: The passwords must match
+  remember_me: Remember me
+  got_it: Okay, got it!
+  comment: Comment
+
+  project_name: Name
+
+  time_start: Start
+  time_end: End
+
+
+error:
+  mail_already_in_use: E-Mail address is already in use
+  username_already_in_use: Username is already in use
+  project_already_in_use: Project name is already in use
+
+project:
+  index:
+    time_spend: Total time spend on this project: %time%
+    settings: Settings
+    owner: owns this project
+
+    chart:
+      total_time: Total worked time
+      time_worked_by: Time worked by %username%
+      time_worked_others: Time works by other project members
+
+  new:
+    header: New project
+    submit: Create project
+    error: Project name is already in use. Please choose another one
+    success: Project successfully created
+
+  edit:
+    header: Edit project
+    submit: Save
+    success: Project successfully updated
+
+  delete:
+    header: Delete project
+    submit: Delete
+    info: You are going to delete this project entirely. There will be no turning back!
+    success: Project successfully deleted
+
+  users:
+    header: Manage users
+    members: Project members
+    others: Users
+    add: add to project
+    delete: delete from project
+
+    success:
+      add: Successfully added user to project
+      delete: Successfully deleted user from project
+
+  times:
+
+    add:
+      header: Add time
+      submit: add
+      success: Time added successfully
+
+    edit:
+      header: Edit time
+      submit: save
+      success: Time updated successfully
+
+    delete:
+      header: Delete time
+      submit: delete
+      success: Time deleted successfully
+      info: You are going to delete this time
+
+    show:
+      header: Show times
+
+users:
+  header: Users
+
+  add:
+    header: Add user
+    submit: Create
+    success: User successfully added
+
+  edit:
+    header: Edit user
+    success: User successfully updated
+
+  delete:
+    header: Delete user
+    submit: Delete
+    success: User successfully deleted
+    error:
+      id_one: You cannot remove user with the ID 1
+      yourself: You cannot remove yourself
+
+admin:
+  header: Administration
+
+other:
+  actions:
+    header: Actions
+    edit: edit
+    delete: delete
+
+  alert: Alert
+  info: Info
+  togglenavigation: Menu
+
+time_difference:
+  minute: minute
+  minutes: minutes
+  hour: hour
+  hours: hours
+  day: day
+  days: days

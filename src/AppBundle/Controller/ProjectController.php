@@ -21,7 +21,9 @@ class ProjectController extends Controller {
         $project = new Project();
 
         $form = $this->createFormBuilder($project)
-            ->add('name', 'text')
+            ->add('name', 'text', [
+                'label' => 'form.project_name'
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -38,7 +40,7 @@ class ProjectController extends Controller {
             $existingProject = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
             if(null !== $existingProject) {
-                $form->get('name')->addError(new FormError('Project name is already in use. Please choose another one'));
+                $form->get('name')->addError(new FormError($this->get('translator')->trans('error.project_already_in_use')));
             } else {
                 $user = $this->getUser();
 
@@ -52,7 +54,7 @@ class ProjectController extends Controller {
 
                 $em->flush();
 
-                $this->addFlash('success', 'Project was successfully added');
+                $this->addFlash('success', 'project.add.success');
 
                 return $this->redirectToRoute('show_project', ['slug' => $slug ]);
             }
@@ -150,9 +152,15 @@ class ProjectController extends Controller {
         $workedTime->setEnd(new \DateTime());
 
         $form = $this->createFormBuilder($workedTime)
-            ->add('start', 'datetime')
-            ->add('end', 'datetime')
-            ->add('comment')
+            ->add('start', 'datetime', [
+                'label' => 'form.time_start'
+            ])
+            ->add('end', 'datetime', [
+                'label' => 'form.time_end'
+            ])
+            ->add('comment', 'text', [
+                'label' => 'form.comment'
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -164,7 +172,7 @@ class ProjectController extends Controller {
             $em->persist($workedTime);
             $em->flush();
 
-            $this->addFlash('success', 'Time was added successfully');
+            $this->addFlash('success', 'project.times.add.success');
 
             return $this->redirectToRoute('show_project', ['slug' => $slug ]);
         }
@@ -191,9 +199,15 @@ class ProjectController extends Controller {
         }
 
         $form = $this->createFormBuilder($time)
-            ->add('start', 'datetime')
-            ->add('end', 'datetime')
-            ->add('comment')
+            ->add('start', 'datetime', [
+                'label' => 'form.time_start'
+            ])
+            ->add('end', 'datetime', [
+                'label' => 'form.time_end'
+            ])
+            ->add('comment', 'text', [
+                'label' => 'form.comment'
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -202,7 +216,7 @@ class ProjectController extends Controller {
             $em->persist($time);
             $em->flush();
 
-            $this->addFlash('success', 'Time was updated successfully');
+            $this->addFlash('success', 'project.times.edit.success');
 
             return $this->redirectToRoute('show_times', ['slug' => $time->getProject()->getSlug() ]);
         }
@@ -229,7 +243,10 @@ class ProjectController extends Controller {
         }
 
         $form = $this->createFormBuilder()
-            ->add('confirm', 'checkbox', [ 'required' => true, 'label' => 'Okay, got it!' ])
+            ->add('confirm', 'checkbox', [
+                'required' => true,
+                'label' => 'form.got_it'
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -238,7 +255,7 @@ class ProjectController extends Controller {
             $em->remove($time);
             $em->flush();
 
-            $this->addFlash('success', 'Time was successfully removed');
+            $this->addFlash('success', 'project.times.delete.success');
             return $this->redirectToRoute('show_times', [ 'slug' => $time->getProject()->getSlug() ]);
         }
 
@@ -328,7 +345,7 @@ class ProjectController extends Controller {
             $existingProject = $em->getRepository('AppBundle:Project')->findOneBySlug($slug);
 
             if(null !== $existingProject && $existingProject->getId() !== $project->getId()) {
-                $form->get('name')->addError(new FormError('Project name is already in use. Please choose another one'));
+                $form->get('name')->addError(new FormError($this->get('translator')->trans('error.project_already_in_use')));
             } else {
                 $project->setOwner($this->getUser());
                 $project->addUser($this->getUser());
@@ -336,7 +353,7 @@ class ProjectController extends Controller {
                 $em->persist($project);
                 $em->flush();
 
-                $this->addFlash('success', 'Project was successfully saved');
+                $this->addFlash('success', 'project.edit.success');
 
                 return $this->redirectToRoute('show_project', ['slug' => $slug ]);
             }
@@ -362,7 +379,10 @@ class ProjectController extends Controller {
         $this->checkOwnership($project, $this->getUser());
 
         $form = $this->createFormBuilder()
-            ->add('confirm', 'checkbox', [ 'required' => true, 'label' => 'Okay, got it!' ])
+            ->add('confirm', 'checkbox', [
+                'required' => true,
+                'label' => 'form.got_it'
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -371,7 +391,7 @@ class ProjectController extends Controller {
             $em->remove($project);
             $em->flush();
 
-            $this->addFlash('success', 'Project was successfully removed');
+            $this->addFlash('success', 'project.delete.success');
             return $this->redirectToRoute('dashboard');
         }
 
@@ -426,7 +446,7 @@ class ProjectController extends Controller {
 
                     $em->flush();
 
-                    $this->addFlash('success', 'Added user to project successfully');
+                    $this->addFlash('success', 'project.users.success.add');
                 } else if ($action === 'delete' && $csrfProvider->isTokenValid(new CsrfToken('user.delete', $csrf))) {
                     $project->removeUser($user);
                     $user->removeProject($project);
@@ -436,7 +456,7 @@ class ProjectController extends Controller {
 
                     $em->flush();
 
-                    $this->addFlash('success', 'Added user to project successfully');
+                    $this->addFlash('success', 'project.users.success.delete');
                 }
             }
 

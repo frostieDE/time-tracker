@@ -1,16 +1,16 @@
 {% extends "main.html.twig" %}
 
-{% block title %}Edit profile{% endblock %}
+{% block title %}{{ 'profile.edit.header'|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
-        <li class="active">Edit profile</li>
+        <li><a href="{{ path('dashboard') }}">{{ 'dashboard.index'|trans }}</a></li>
+        <li class="active">{{ 'profile.edit.header'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-user"></i> Edit profile</h3>
+    <h3><i class="fa fa-user"></i> {{ 'profile.edit.header'|trans }}</h3>
 
     <div class="row">
         <div class="col-md-6">
@@ -20,7 +20,7 @@
 
             <div class="form-buttons">
                 <button class="btn btn-primary">
-                    <i class="fa fa-save"></i> Save profile
+                    <i class="fa fa-save"></i> {{ 'profile.edit.submit'|trans }}
                 </button>
             </div>
             {{ form_end(formProfile) }}
@@ -33,7 +33,7 @@
 
             <div class="form-buttons">
                 <button class="btn btn-primary">
-                    <i class="fa fa-save"></i> Change password
+                    <i class="fa fa-save"></i> {{ 'profile.edit.password'|trans }}
                 </button>
             </div>
             {{ form_end(formPassword) }}

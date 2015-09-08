@@ -1,19 +1,19 @@
 {% extends "main.html.twig" %}
 
-{% block title %}Manage users{% endblock %}
+{% block title %}{{ 'project.users.header'|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li><a href="{{ path('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ path('dashboard') }}">{{ 'dashboard.index'|trans }}</a></li>
         <li><a href="{{ path('show_project', { slug: project.slug }) }}">{{ project.name }}</a></li>
-        <li class="active">Manage users</li>
+        <li class="active">{{ 'project.users.header'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-users"></i> Manage users</h3>
+    <h3><i class="fa fa-users"></i> {{ 'project.users.header'|trans }}</h3>
 
-    <h4>Project members</h4>
+    <h4>{{ 'project.users.members'|trans }}</h4>
 
     <ul class="list-group user-list">
     {% for user in members %}
@@ -29,7 +29,7 @@
                     <input type="hidden" name="_userid" value="{{ user.id }}" />
                     <input type="hidden" name="_action" value="delete" />
 
-                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> delete from project</button>
+                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> {{ 'project.users.delete'|trans }}</button>
                 </form>
             </div>
             {% endif %}
@@ -37,7 +37,7 @@
     {% endfor %}
     </ul>
 
-    <h4>Users</h4>
+    <h4>{{ 'project.users.others'|trans }}</h4>
 
     <ul class="list-group user-list">
     {% for user in otherUsers %}
@@ -52,7 +52,7 @@
                     <input type="hidden" name="_userid" value="{{ user.id }}" />
                     <input type="hidden" name="_action" value="add" />
 
-                    <button class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> add to project</button>
+                    <button class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> {{ 'project.users.add'|trans }}</button>
                 </form>
             </div>
         </li>

@@ -1,13 +1,13 @@
 {% extends 'main.html.twig' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}{{ 'dashboard.index'|trans }}{% endblock %}
 
 {% block pre_content %}
 <div class="section-tout">
     <div class="container">
         <div class="pull-left">
             <h3>
-                <i class="fa fa-user"></i> Welcome to your dashboard, {{ app.user.username }}.
+                <i class="fa fa-user"></i> {{ 'dashboard.welcome'|trans({ '%username%': app.user.username }) }}
             </h3>
         </div>
         <div class="pull-right">
@@ -20,12 +20,14 @@
 {% endblock %}
 
 {% block content %}
-    <h3>Your Projects</h3>
+    <h3>{{ 'dashboard.projects.header'|trans }}</h3>
 
     {% if projects is empty %}
     <p>
-        You are not part of any project.
-        <a href="{{ path('add_project') }}" class="btn btn-primary btn-sm" role="button"><i class="fa fa-plus"></i> Create one</a>
+        {{ 'dashboard.projects.empty'|trans }}
+        <a href="{{ path('add_project') }}" class="btn btn-primary btn-sm" role="button">
+            <i class="fa fa-plus"></i> {{ 'dashboard.projects.create'|trans }}
+        </a>
     </p>
     {% else %}
     <div class="panel panel-default">

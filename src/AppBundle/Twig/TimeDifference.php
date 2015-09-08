@@ -2,7 +2,15 @@
 
 namespace AppBundle\Twig;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 class TimeDifference extends \Twig_Extension {
+
+    private $container;
+
+    public function __construct(ContainerInterface $container) {
+        $this->container = $container;
+    }
 
     public function getFilters() {
         return [
@@ -15,6 +23,8 @@ class TimeDifference extends \Twig_Extension {
      * @return string
      */
     public function renderTimeDifference($difference) {
+        $translator = $this->container->get('translator');
+
         if(!is_numeric($difference)) {
             return $difference;
         }
@@ -26,14 +36,14 @@ class TimeDifference extends \Twig_Extension {
         $result = '';
 
         if($days > 0) {
-            $result .= $days . ' ' . ($days == 1 ? 'day' : 'days') . ' ';
+            $result .= $days . ' ' . ($days == 1 ? $translator->trans('time_difference.day') : $translator->trans('time_difference.days')) . ' ';
         }
 
         if($hours > 0) {
-            $result .= $hours . ' ' . ($hours == 1 ? 'hour' : 'hours') . ' ';
+            $result .= $hours . ' ' . ($hours == 1 ? $translator->trans('time_difference.hour') : $translator->trans('time_difference.hours')) . ' ';
         }
 
-        $result .= $minutes . ' ' . ($minutes == 1 ? 'minute' : 'minutes');
+        $result .= $minutes . ' ' . ($minutes == 1 ? $translator->trans('time_difference.minute') : $translator->trans('time_difference.minutes'));
 
         return $result;
     }

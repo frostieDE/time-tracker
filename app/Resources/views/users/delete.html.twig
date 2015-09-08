@@ -1,17 +1,17 @@
 {% extends "main.html.twig" %}
 
-{% block title %}Add user{% endblock %}
+{% block title %}{{ 'users.delete.header'|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
-        <li>Admin area</li>
-        <li><a href="{{ path('show_users') }}">User management</a></li>
-        <li class="active">Delete user</li>
+        <li>{{ 'admin.header'|trans }}</li>
+        <li><a href="{{ path('show_users') }}">{{ 'users.header'|trans }}</a></li>
+        <li class="active">{{ 'users.delete.header'|trans }}</li>
     </ol>
 {% endblock %}
 
 {% block content %}
-    <h3><i class="fa fa-trash-o"></i> Delete user</h3>
+    <h3><i class="fa fa-trash-o"></i> {{ 'users.delete.header'|trans }}</h3>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -19,7 +19,7 @@
 
     <div class="form-buttons">
         <button class="btn btn-danger">
-            <i class="fa fa-trash-o"></i> Delete
+            <i class="fa fa-trash-o"></i> {{ 'users.delete.submit'|trans }}
         </button>
     </div>
     {{ form_end(form) }}

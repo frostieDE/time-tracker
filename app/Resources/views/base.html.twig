@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'>
-        <title>{% block title %}{% endblock %} | Time Tracker</title>
+        <title>{% block title %}{% endblock %} | {% trans %}app.name{% endtrans %}</title>
         {% block stylesheets %}
             {% stylesheets filter="scssphp" output="css/app.css"
             "%kernel.root_dir%/Resources/assets/scss/bootstrap.scss"

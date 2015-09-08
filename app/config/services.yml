@@ -10,8 +10,15 @@ services:
     timedifference:
         class: AppBundle\Utils\TimeDifference
 
+    app.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: ["%%kernel.default_locale%"]
+        tags:
+          - { name: kernel.event_subscriber }
+
     twig.timedifference:
         class: AppBundle\Twig\TimeDifference
+        arguments: ["@service_container"]
         tags:
             - { name: twig.extension }
 

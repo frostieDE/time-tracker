@@ -5,27 +5,27 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">{% trans %}other.togglenavigation{% endtrans %}</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
 
-                <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> Time Tracker</a>
+                <a href="/" class="navbar-brand"><i class="fa fa-clock-o"></i> {% trans %}app.name{% endtrans %}</a>
             </div>
 
             <div class="collapse navbar-collapse" id="nav">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ path('dashboard') }}"><i class="fa fa-th-large"></i> Dashboard</a></li>
-                    <li><a href="{{ path('add_project') }}"><i class="fa fa-plus"></i> New project</a></li>
+                    <li><a href="{{ path('dashboard') }}"><i class="fa fa-th-large"></i> {% trans %}dashboard.index{% endtrans %}</a></li>
+                    <li><a href="{{ path('add_project') }}"><i class="fa fa-plus"></i> {% trans %}project.new.header{% endtrans %}</a></li>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('show_users') }}"><i class="fa fa-users"></i> Users</a></li>
+                    <li><a href="{{ path('show_users') }}"><i class="fa fa-users"></i> {% trans %}users.header{% endtrans %}</a></li>
                     {% endif %}
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ path('edit_profile') }}"><img src="{{ app.user.email|gravatar }}" class="img-circle" width="20" height="20" /> {{ app.user.username }}</a></li>
-                    <li><a href="{{ path('security_logout') }}"><i class="fa fa-sign-out"></i> Sign out</a></li>
+                    <li><a href="{{ path('security_logout') }}"><i class="fa fa-sign-out"></i> {% trans %}security.logout{% endtrans %}</a></li>
                 </ul>
             </div>
         </div>
@@ -39,21 +39,21 @@
         {% for successMessage in app.session.flashbag.get('success') %}
         <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ successMessage }}
+            {{ successMessage|trans }}
         </div>
         {% endfor %}
 
         {% for infoMessage in app.session.flashbag.get('info') %}
         <div class="alert alert-info alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ infoMessage }}
+            {{ infoMessage|trans }}
         </div>
         {% endfor %}
 
         {% for alertMessage in app.session.flashbag.get('alert') %}
         <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ alertMessage }}
+            {{ alertMessage|trans }}
         </div>
         {% endfor %}
 
