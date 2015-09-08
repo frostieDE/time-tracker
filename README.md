@@ -4,6 +4,64 @@ A simple project-based time tracker written in PHP using Symfony.
 
 *Note:* This is my first Symfony project :)
 
+# Installation
+
+Currently, the software can only installed on servers you have SSH access to.
+
+## Requirements
+* PHP 5.4 or higher
+* MySQL/MariaDB for database backend
+* Composer
+
+## Installation/Deployment
+
+First, checkout the source code:
+
+```
+git clone https://github.com/frostie/time-tracker.git
+```
+
+First, check if your system matches Symfony's requirements:
+
+```
+php app/check.php
+```
+
+Then add a environment variable, so all further calls are executed for the `production` environment:
+
+```
+export SYMFONY_ENV=prod
+```
+
+This ensures that the following call won't fail to execute. Now install all dependencies using composer:
+
+```
+composer install --no-dev --optimize-autoloader
+```
+
+Now generate assets:
+
+```
+php app/console assetic:dump --env=prod --no-debug
+```
+
+Finally create the database and create all tables:
+```
+php app/console doctrine:database:create --env=prod
+php app/console doctrine:schema:update --env=prod
+```
+
+(Note: only execute the first command if the configured datatabase account has the right to create the database. If not,
+create the database yourself in the MySQL prompt. When doing so, ensure you use collation `utf8mb4_general_ci`)
+
+Finally, ensure your app has access to the cache folder:
+
+```
+chmod -R 0777 app/cache/
+```
+
+All you need to do now is configuring your webserver. Read on [here](http://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html)
+
 # Contribution
 
 Feel free to add issues or create pull requests.
